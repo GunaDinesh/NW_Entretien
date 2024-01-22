@@ -1,5 +1,5 @@
 
-# Here are some quick parameters to setup in order to use comment features
+# Here are some quick parameters to setup in order to use *Comment* feature
 
 ### migrations
 
