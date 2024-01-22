@@ -35,7 +35,18 @@ async function main() {
         },
     });
 
-    console.log({ firstUser, firstPost, secondPost });
+    const firstComment = await prisma.comment.upsert({
+        where: { id: 1 },
+        update: {},
+        create: {
+            authorId: 1,
+            body: "The very first comment",
+            published: true,
+            articleId: 1
+        },
+    })
+
+    console.log({ firstUser, firstPost, secondPost, firstComment });
 }
 
 main()

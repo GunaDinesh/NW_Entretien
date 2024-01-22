@@ -1,5 +1,6 @@
 import { Mutable } from "../../utils/types";
 import { Article } from "../../domain/articles/article.entity";
+import { Comment } from "src/domain/comments/comments.entity";
 import { getMax } from "../../utils/objects";
 import { User } from "../../domain/users/user.entity";
 
@@ -15,6 +16,7 @@ interface ModelTest<T> {
 export interface PrismaServiceTest {
     user: ModelTest<User>;
     article: ModelTest<Article>;
+    comment: ModelTest<Comment>;
     loadUserData: () => void;
     cleanup: () => void;
 }
@@ -81,13 +83,39 @@ const ArticleModel: ModelTest<Article> = {
     },
 };
 
+const CommentModel: ModelTest<Comment> = {
+    data: [],
+    loadData: {
+        common: () => {
+            const comment: Mutable<Comment> = {
+                authorId: 1, 
+                body: "A good comment",
+                articleId: 1,
+                published: true,
+                comments: []
+            };
+            CommentModel.create({data: comment});
+        }
+    },
+    create: ({ data }) => {
+        const comment: Comment = {
+            ...data,
+            ...generatePersistanceData(CommentModel.data),
+        };
+        CommentModel.data.push(comment);
+        return comment;
+    },
+}
+
 export const PrismaTest: PrismaServiceTest = {
     user: UserModel,
     article: ArticleModel,
+    comment: CommentModel,
     loadUserData: UserModel.loadData.common,
     // TODO: Investigate why this is required.It seems Jets does not recreate the PrismaTest object for each new test run, hence not cleaning up the database.
     cleanup: () => {
         UserModel.data = [];
         ArticleModel.data = [];
+        CommentModel.data = []
     },
 };
