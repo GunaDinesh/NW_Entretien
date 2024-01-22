@@ -19,9 +19,6 @@ npm run seed
 
 ### env variables
 
-In the .env file you'll have to specify 3 variables: 
-SMTP = 
-MAIL = 
-PASSWORD = 
+In the .env file you'll have to specify 3 new variables, just check the .env.example file.
 
 
