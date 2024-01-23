@@ -42,9 +42,9 @@ export class CommentsController {
 
     @UseGuards(JwtAuthGuard)
     @ApiBearerAuth()
-    @Post("/:id")
+    @Post("/:articleId")
     @ApiCreatedResponse({ type: CommentDto })
-    create(@Param("id", ParseIntPipe) id: number, @Body() createCommentDto: CreateCommentDto, @Request() request) {
+    create(@Param("articleId", ParseIntPipe) id: number, @Body() createCommentDto: CreateCommentDto, @Request() request) {
         const comment = new CreateCommentRequest(createCommentDto).toEntity();
         return this.commentsService.create({
             ...comment,
@@ -117,9 +117,9 @@ export class CommentsController {
 
     @UseGuards(JwtAuthGuard)
     @ApiBearerAuth()
-    @Patch("/subcomment/:id")
+    @Patch("/subcomment/:commentId")
     update(
-        @Param("id") id: number,
+        @Param("commentId") id: number,
         @Body() createSubCommentDto: CreateSubCommentDto
     ) {
         const comment = new CreateSubCommentRequest(createSubCommentDto.comment).toEntity();

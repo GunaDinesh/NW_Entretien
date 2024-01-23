@@ -13,7 +13,7 @@ export class CommentsService {
     ) {}
 
     create = async (comment: Mutable<Comment>) => {
-        validateCommentContent(comment);
+        validateCommentContent(comment.body);
         try {
             const createdComment = await this.prisma.comment.create({
                 data: { ...comment },
@@ -53,6 +53,7 @@ export class CommentsService {
         comment: Partial<MutableComment>,
         userId: number,
     ) => {
+        validateCommentContent(comment.body);
         const persistedComment = await this.prisma.comment.findUnique({
             where: { id },
         });
@@ -74,6 +75,8 @@ export class CommentsService {
         id: number,
         comment: string,
     ) => {
+        validateCommentContent(comment);
+
         const persistedComment = await this.prisma.comment.findUnique({
             where: { id },
         })

@@ -17,11 +17,10 @@ export const validateUserCanMutateComment = (
 // Verifies if the comment contains any vulgarity
 
 export const validateCommentContent = (
-    comment: MutableComment
+    comment: string
 ) => {
     var curseWordRegEx = /\bshit\b/i;
-    if(curseWordRegEx.test(comment.body)) {
+    if(curseWordRegEx.test(comment)) {
         throw new HttpException('Comment contains curse words !', HttpStatus.BAD_REQUEST);
-        // throw new Error("Comment contains curse words !");
     }
 }

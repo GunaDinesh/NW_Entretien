@@ -1,14 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CommentsController } from './comments.controller';
 import { CommentsService } from '../../../domain/comments/comments.service';
-import { CommentDto, CreateCommentDto, UpdateCommentDto, CommentResponse, CreateSubCommentDto } from './comments.dto';
-import { JwtAuthGuard } from '../auth/auth.guard';
-import { Request } from '@nestjs/common';
+import { CommentDto, CreateSubCommentDto } from './comments.dto';
 import { PrismaService } from '../../../infrastructure/prisma/prisma.service';
 import { NotificationService } from '../../../domain/notifications/notifications.service';
 import {
-    PrismaTest,
-    PrismaServiceTest,
+    PrismaTest
 } from "../../../infrastructure/prisma/prisma.mock";
 import { EmailService } from '../../../infrastructure/email/email.service';
 
@@ -42,4 +39,5 @@ describe('CommentsController', () => {
       expect(result).toBeInstanceOf(CommentDto);
     });
   });
+
 });
